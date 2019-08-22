@@ -7,7 +7,7 @@ export class UserInfoModel
     last_name: string;
 
     email: string;
-    mobile_number: number;
+    mob_number: number;
 
     password: string;
 

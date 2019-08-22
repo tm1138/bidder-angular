@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserInfoModel } from '../models/UserInfoModel'
+import { UserInfoModel } from '../../models/UserInfoModel'
 
 @Component({
   selector: 'display-user-data',
@@ -9,12 +9,11 @@ import { UserInfoModel } from '../models/UserInfoModel'
 export class DisplayUserDataComponent implements OnInit {
 
   user: UserInfoModel = new UserInfoModel({
-      guid: "SDH8als987",
-      customerUid: "cust123",
+      username: "SDH8als987",
       first_name: "John", 
 		  last_name: "Doe", 
-		  email: "email@email.com", 
-		  mobile_number: 6465465454,
+		  email_id: "email@email.com", 
+		  mob_number: 6465465454,
       password: "Idasn2x2#"
   });
 

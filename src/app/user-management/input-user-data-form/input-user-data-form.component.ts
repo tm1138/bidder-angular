@@ -23,14 +23,12 @@ export class InputUserDataFormComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder, private http: HttpClient, private router: Router)
   {
-    this.http.get('/api/v1/generate_uid').subscribe((data: any) => {
-      this.guid = data.guid;
-    }, error => {
-      console.log("there was an error generating guid on this server", error);
-    });
   }
 
-
+  invalidUserName()
+  {
+    return (this.submitted && (this.serviceErrors.username != null || this.userForm.controls.username.errors != null));
+  }
 
   invalidFirstName()
   {
@@ -44,12 +42,12 @@ export class InputUserDataFormComponent implements OnInit {
 
   invalidEmail()
   {
-  	return (this.submitted && (this.serviceErrors.email != null || this.userForm.controls.email.errors != null));
+  	return (this.submitted && (this.serviceErrors.email_id != null || this.userForm.controls.email_id.errors != null));
   }
 
   invalidMobileNumber()
   {
-  	return (this.submitted && (this.serviceErrors.mobile_number != null || this.userForm.controls.mobile_number.errors != null));
+  	return (this.submitted && (this.serviceErrors.mob_number != null || this.userForm.controls.mob_number.errors != null));
   }
 
   invalidPassword()
@@ -58,14 +56,16 @@ export class InputUserDataFormComponent implements OnInit {
   }
 
 
-  ngOnInit() 
+  ngOnInit()
   {
       this.userForm = this.formBuilder.group({
+            username: ['', [Validators.required, Validators.minLength(3)]],
             first_name: ['', [Validators.required]],
             last_name: ['', [Validators.required, Validators.maxLength(50)]],
-            email: ['', [Validators.required, Validators.email]],
-            mobile_number: ['', [Validators.required, Validators.pattern("[0-9]{10}")]],
+            email_id: ['', [Validators.required, Validators.email]],
+            mob_number: ['', [Validators.required, Validators.pattern("[0-9]{10}")]],
             password: ['', [Validators.required, Validators.minLength(6), Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')]]
+            //password: ['', [Validators.required, Validators.minLength(6), Validators.pattern("[0-9]{10}")]]
       });
   }
 
@@ -73,7 +73,7 @@ export class InputUserDataFormComponent implements OnInit {
   onSubmit()
   {
 
-    debugger;
+    //debugger;
     this.submitted = true;
 
     if (this.userForm.invalid == true)
@@ -83,8 +83,8 @@ export class InputUserDataFormComponent implements OnInit {
     else
     {
 
-      let data: any = Object.assign({guid: this.guid}, this.userForm.value)
-      this.http.post('/api/v1/customer', data).subscribe((data: any) => 
+      let postData: any = Object.assign(this.userForm.value);
+      this.http.post('/api/customer/register', postData).subscribe((data: any) => 
       {
         let path = '/user/' + data.customer.uid;
         this.router.navigate([path]);

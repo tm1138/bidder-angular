@@ -1,5 +1,10 @@
 <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
 
+	<div class="form-group" [ngClass]="{ 'has-error': invalidUserName() }"> <!-- User Name -->
+    	<label for="username" class="control-label">User Name</label>
+    	<input type="text" formControlName="username" class="form-control" id="username" name="username" placeholder="unique username">
+    	<p *ngIf="invalidUserName()" id="username_error" class="help-block">{{ this.serviceErrors.username || 'Invalid user name.' }}</p>
+	</div>
 
 	<div class="form-group" [ngClass]="{ 'has-error': invalidFirstName() }"> <!-- First Name -->
     	<label for="first_name" class="control-label">First Name</label>
@@ -14,15 +19,15 @@
 	</div>
 
 	<div class="form-group" [ngClass]="{ 'has-error': invalidEmail() }"> <!-- Email -->
-		<label for="email" class="control-label">E-mail</label>
-		<input type="text" formControlName="email" class="form-control" id="email" name="email" placeholder="your@email.com">
-		<p *ngIf="invalidEmail()" id="email_error" class="help-block">{{ this.serviceErrors.email || 'Invalid email address.' }}</p>
+		<label for="email_id" class="control-label">E-mail</label>
+		<input type="text" formControlName="email_id" class="form-control" id="email_id" name="email_id" placeholder="your@email.com">
+		<p *ngIf="invalidEmail()" id="email_id_error" class="help-block">{{ this.serviceErrors.email_id || 'Invalid email address.' }}</p>
 	</div>
 
 	<div class="form-group" [ngClass]="{ 'has-error': invalidMobileNumber() }"> <!-- Mobile Number-->
-		<label for="mobile_number" class="control-label">Mobile Number</label>
-		<input type="text" formControlName="mobile_number" class="form-control" id="mobile_number" name="mobile_number" placeholder="##########">
-		<p *ngIf="invalidMobileNumber()" id="mobile_number_error" class="help-block">{{ this.serviceErrors.mobile_number || 'Invalid mobile number.' }}</p>
+		<label for="mob_number" class="control-label">Mobile Number</label>
+		<input type="text" formControlName="mob_number" class="form-control" id="mob_number" name="mob_number" placeholder="##########">
+		<p *ngIf="invalidMobileNumber()" id="mob_number" class="help-block">{{ this.serviceErrors.mob_number || 'Invalid mobile number.' }}</p>
 	</div>
 
 	<div class="form-group" [ngClass]="{ 'has-error': invalidPassword() }"> <!-- Password -->
